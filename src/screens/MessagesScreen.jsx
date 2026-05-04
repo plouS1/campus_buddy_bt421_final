@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import Avatar from '../components/Avatar';
 import BottomNav from '../components/BottomNav';
 import ChatThread from './ChatThread';

@@ -1,6 +1,5 @@
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import Avatar from '../components/Avatar';
-import InterestTag from '../components/InterestTag';
 import BottomNav from '../components/BottomNav';
 
 export default function FinderScreen() {

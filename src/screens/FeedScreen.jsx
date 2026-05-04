@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import ActivityCard from '../components/ActivityCard';
 import PostComposer from '../components/PostComposer';
 import BottomNav from '../components/BottomNav';

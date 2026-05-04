@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import Avatar from '../components/Avatar';
 import InterestTag from '../components/InterestTag';
 import BottomNav from '../components/BottomNav';
@@ -119,6 +119,7 @@ export default function ProfileScreen() {
             <div>
               <h2 className="text-xl font-bold text-gray-900">{currentUser?.name}</h2>
               <p className="text-sm text-indigo-600 font-medium mt-0.5">{currentUser?.major}</p>
+              <p className="text-xs text-emerald-600 font-medium mt-0.5">{currentUser?.email}</p>
               <p className="text-xs text-gray-400 mt-0.5">{currentUser?.year}</p>
             </div>
           </div>

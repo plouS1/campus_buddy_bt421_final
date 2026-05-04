@@ -1,5 +1,5 @@
 import Avatar from './Avatar';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 
 function timeAgo(ts) {
   const diff = (Date.now() - ts) / 1000;

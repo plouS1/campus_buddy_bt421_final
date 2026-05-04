@@ -1,14 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import { INTERESTS, MAJORS, YEARS } from '../data/mockData';
 import InterestTag from '../components/InterestTag';
+
+const STEVENS_EMAIL_DOMAIN = '@stevens.edu';
+
+function isStevensEmail(email) {
+  return email.trim().toLowerCase().endsWith(STEVENS_EMAIL_DOMAIN);
+}
 
 export default function OnboardingScreen() {
   const { login } = useApp();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState({ name: '', major: '', year: '', interests: [] });
+  const [form, setForm] = useState({ name: '', email: '', major: '', year: '', interests: [] });
   const [error, setError] = useState('');
 
   function toggleInterest(tag) {
@@ -24,6 +30,8 @@ export default function OnboardingScreen() {
   function handleNext() {
     if (step === 1) {
       if (!form.name.trim()) { setError('Enter your name'); return; }
+      if (!form.email.trim()) { setError('Enter your Stevens email'); return; }
+      if (!isStevensEmail(form.email)) { setError('Use your @stevens.edu email to continue'); return; }
       if (!form.major) { setError('Select your major'); return; }
       if (!form.year) { setError('Select your year'); return; }
       setError('');
@@ -64,6 +72,11 @@ export default function OnboardingScreen() {
           <div className="fade-in flex flex-col gap-4">
             <h2 className="text-xl font-bold text-gray-900">Tell us about yourself</h2>
 
+            <div className="rounded-xl border border-indigo-100 bg-indigo-50 px-4 py-3">
+              <p className="text-xs font-semibold text-indigo-700 uppercase tracking-wide">Stevens-only login</p>
+              <p className="text-sm text-indigo-900 mt-1">Campus Buddy only accepts accounts ending in @stevens.edu.</p>
+            </div>
+
             <div>
               <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5 block">Your Name</label>
               <input
@@ -71,6 +84,19 @@ export default function OnboardingScreen() {
                 placeholder="First Last"
                 value={form.name}
                 onChange={e => { setForm(p => ({ ...p, name: e.target.value })); setError(''); }}
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5 block">Stevens Email</label>
+              <input
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                placeholder="you@stevens.edu"
+                type="email"
+                autoCapitalize="none"
+                autoComplete="email"
+                value={form.email}
+                onChange={e => { setForm(p => ({ ...p, email: e.target.value })); setError(''); }}
               />
             </div>
 

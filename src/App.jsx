@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AppProvider, useApp } from './context/AppContext';
+import { AppProvider } from './context/AppContext';
+import { useApp } from './context/useApp';
 import PhoneFrame from './components/PhoneFrame';
 import OnboardingScreen from './screens/OnboardingScreen';
 import FeedScreen from './screens/FeedScreen';

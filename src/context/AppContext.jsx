@@ -1,7 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { mockStudents, mockPosts, mockConversations } from '../data/mockData';
-
-const AppContext = createContext(null);
+import { AppContext } from './useApp';
 
 export function AppProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
@@ -15,6 +14,7 @@ export function AppProvider({ children }) {
     const user = {
       id: 'me',
       name: userData.name,
+      email: userData.email.trim().toLowerCase(),
       major: userData.major,
       year: userData.year,
       interests: userData.interests,
@@ -92,11 +92,11 @@ export function AppProvider({ children }) {
     }));
   }
 
-  function markRead(conversationId) {
+  const markRead = useCallback((conversationId) => {
     setConversations(prev => prev.map(c =>
       c.id === conversationId ? { ...c, unread: 0 } : c
     ));
-  }
+  }, []);
 
   const finderStudents = students.filter(s => !connections.includes(s.id));
 
@@ -111,10 +111,4 @@ export function AppProvider({ children }) {
       {children}
     </AppContext.Provider>
   );
-}
-
-export function useApp() {
-  const ctx = useContext(AppContext);
-  if (!ctx) throw new Error('useApp must be used within AppProvider');
-  return ctx;
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../context/useApp';
 import Avatar from '../components/Avatar';
 
 export default function ChatThread({ conversation, onBack }) {
@@ -12,7 +12,7 @@ export default function ChatThread({ conversation, onBack }) {
 
   useEffect(() => {
     markRead(conversation.id);
-  }, []);
+  }, [conversation.id, markRead]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
